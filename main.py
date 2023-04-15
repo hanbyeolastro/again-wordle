@@ -6,7 +6,7 @@ import uvicorn
 
 
 app = FastAPI()
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
 
 class Item(BaseModel):
