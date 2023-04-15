@@ -6,7 +6,6 @@ import uvicorn
 
 
 app = FastAPI()
-app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
 
 class Item(BaseModel):
@@ -22,8 +21,12 @@ class Item(BaseModel):
 
 @app.get("/hello")
 def hello():
-
     return {"message": "안녕하세요 슈퍼코딩"}
+
+
+@app.get("/answer")
+def read_answer():
+    return {"answer": "apple"}
 
 
 @app.get("/items/{item_id}")
@@ -46,6 +49,8 @@ def create_item(item: Item):
 
     return item
 
+
+app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
 if __name__ == '__main__':
 

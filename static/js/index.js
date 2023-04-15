@@ -1,5 +1,3 @@
-const words = ["apple", "banana", "cherry", "grape", "lemon", "orange"];
-const answer = words[0];
 const timerDiv = document.getElementById("timer");
 
 let attempts = 0;
@@ -29,7 +27,10 @@ function 키보드_입력_시작() {
     window.removeEventListener("keydown", 키보드_입력_동작);
   };
 
-  const 정답_확인 = () => {
+  const 정답_확인 = async () => {
+    const response = await fetch("/answer");
+    const jsonRes = await response.json();
+    const answer = jsonRes.answer;
     let thisWord = "";
     document
       .querySelectorAll(`.row-${attempts} .board-column`)
@@ -53,9 +54,9 @@ function 키보드_입력_시작() {
     isExistLastWord = false;
   };
 
-  const 엔터키_처리 = () => {
+  const 엔터키_처리 = async () => {
     if (index !== 4 || !isExistLastWord) return;
-    정답_확인();
+    await 정답_확인();
     다음_줄_변경();
   };
 
