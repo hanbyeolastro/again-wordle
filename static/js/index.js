@@ -72,8 +72,18 @@ function 키보드_입력_시작() {
     if (index !== 4) index++;
   };
 
+  const 백_키_처리 = () => {
+    if (index === 4) isExistLastWord = false;
+    index--;
+    const curBox = document.querySelector(
+      `div[data-index="${attempts}${index}"`
+    );
+    curBox.innerText = "";
+  };
+
   const 키보드_입력_동작 = (e) => {
     if (e.key === "Enter") return 엔터키_처리();
+    if (e.key === "Backspace") return 백_키_처리();
     else if (e.keyCode < 65 || e.keyCode > 90) return;
     else 알파벳_처리(e.key);
 
